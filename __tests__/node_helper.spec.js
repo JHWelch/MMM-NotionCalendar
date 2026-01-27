@@ -49,6 +49,12 @@ describe('handleRequest', () => {
     });
     expect(query).toHaveBeenCalledWith({
       data_source_id: 'test-datasource-id',
+      filter: {
+        property: 'Date',
+        date: {
+          is_not_empty: true,
+        },
+      },
     });
   });
 

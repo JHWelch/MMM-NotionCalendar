@@ -27,6 +27,12 @@ module.exports = NodeHelper.create({
 
     const events = await notion.dataSources.query({
       data_source_id: dataSourceId,
+      filter: {
+        property: 'Date',
+        date: {
+          is_not_empty: true,
+        },
+      },
     });
 
     res.type('text/calendar');
