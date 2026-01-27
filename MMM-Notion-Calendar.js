@@ -1,5 +1,4 @@
 /* global Module */
-/* global moment */
 
 /* Magic Mirror
  * Module: MMM-Notion-Calendar
