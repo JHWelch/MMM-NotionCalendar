@@ -8,11 +8,5 @@
  */
 
 Module.register('MMM-Notion-Calendar', {
-  defaults: {
-
-  },
-
   requiresVersion: '2.28.0',
-
-  loading: true,
 });
