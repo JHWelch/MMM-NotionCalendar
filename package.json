@@ -29,7 +29,8 @@
     "fix": "eslint . --fix"
   },
   "dependencies": {
-    "@notionhq/client": "^5.8.0"
+    "@notionhq/client": "^5.8.0",
+    "ics": "^3.8.1"
   },
   "devDependencies": {
     "@jest-mock/express": "^3.0.0",

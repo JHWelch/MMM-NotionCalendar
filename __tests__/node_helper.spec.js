@@ -52,3 +52,37 @@ describe('handleRequest', () => {
     });
   });
 });
+
+describe('eventToIcs', () => {
+  beforeEach(() => {
+    jest.mock('logger');
+  });
+
+  it('converts notion objects to ics format', () => {
+    jest
+      .useFakeTimers()
+      .setSystemTime(new Date('2026-01-12'));
+    const notionEvents = [
+      {
+        object: 'page',
+        id: 'page-id',
+        properties: {
+          Name: { title: [{ text: { content: 'Task 1' } }] },
+          Status: { select: { name: 'In Progress' } },
+          Date: { date: { start: '2023-09-30' } },
+        },
+      },
+      {
+        object: 'page',
+        id: 'page-id-2',
+        properties: {
+          Name: { title: [{ text: { content: 'Task 2' } }] },
+          Status: { select: { name: 'Not started' } },
+          Date: { date: { start: '2023-10-01' } },
+        },
+      },
+    ];
+
+    expect(helper.eventsToIcs(notionEvents)).toMatchSnapshot();
+  });
+});
