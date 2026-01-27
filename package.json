@@ -1,0 +1,39 @@
+{
+  "name": "MMM-Notion-Calendar",
+  "version": "1.0.0",
+  "description": "A Magic Mirror Module to display tasks from a Notion Task database",
+  "keywords": [
+    "notion",
+    "tasks",
+    "todo",
+    "magic",
+    "mirror",
+    "mmm"
+  ],
+  "homepage": "https://github.com/JHWelch/MMM-Notion-Calendar#readme",
+  "bugs": {
+    "url": "https://github.com/JHWelch/MMM-Notion-Calendar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/JHWelch/MMM-Notion-Calendar.git"
+  },
+  "license": "MIT",
+  "author": "Jordan Welch",
+  "type": "commonjs",
+  "main": "MMM-Notion-Calendar.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@notionhq/client": "^5.8.0"
+  },
+  "devDependencies": {
+    "@jhwelch/mmm-eslint-config": "^3.0.0",
+    "eslint": "^9.39.2",
+    "jest": "^30.2.0"
+  }
+}
