@@ -1,6 +1,7 @@
 const { Client } = require('@notionhq/client');
 const { getMockReq, getMockRes } = require('@jest-mock/express');
 
+let Log;
 let helper;
 let query;
 
@@ -9,6 +10,8 @@ const { res, mockClear } = getMockRes();
 beforeEach(() => {
   helper = require('../node_helper.js');
   helper.setName('MMM-Notion-Calendar');
+  jest.mock('logger');
+  Log = require('logger');
 });
 
 afterEach(() => {
@@ -94,13 +97,41 @@ describe('handleRequest', () => {
     expect(res.type).toHaveBeenCalledWith('text/calendar');
     expect(res.send).toHaveBeenCalledWith(helper.eventsToIcs(notionEvents));
   });
+
+  it('will fail if not provided token', () => {
+    const req = getMockReq({
+      query: {
+        dataSourceId: 'test-datasource-id',
+      },
+    });
+
+    helper.handleRequest(req, res);
+
+    expect(Client).not.toHaveBeenCalled();
+    expect(query).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(422);
+    expect(res.send).toHaveBeenCalledWith('"token" query parameter is required.');
+    expect(Log.error).toHaveBeenCalledWith('"token" query parameter is required.');
+  });
+
+  it('will fail if not provided dataSourceId', () => {
+    const req = getMockReq({
+      query: {
+        token: 'test-notion-token',
+      },
+    });
+
+    helper.handleRequest(req, res);
+
+    expect(Client).not.toHaveBeenCalled();
+    expect(query).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(422);
+    expect(res.send).toHaveBeenCalledWith('"dataSourceId" query parameter is required.');
+    expect(Log.error).toHaveBeenCalledWith('"dataSourceId" query parameter is required.');
+  });
 });
 
 describe('eventToIcs', () => {
-  beforeEach(() => {
-    jest.mock('logger');
-  });
-
   it('converts notion objects to ics format', () => {
     jest
       .useFakeTimers()

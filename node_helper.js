@@ -21,6 +21,19 @@ module.exports = NodeHelper.create({
   async handleRequest (req, res) {
     const { token, dataSourceId } = req.query;
 
+    if (!token) {
+      res.status(422).send('"token" query parameter is required.');
+      Log.error('"token" query parameter is required.');
+
+      return;
+    }
+    if (!dataSourceId) {
+      res.status(422).send('"dataSourceId" query parameter is required.');
+      Log.error('"dataSourceId" query parameter is required.');
+
+      return;
+    }
+
     const notion = new Client({
       auth: token,
     });
