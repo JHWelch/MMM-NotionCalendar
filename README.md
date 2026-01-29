@@ -4,8 +4,6 @@ This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/Magic
 
 This module provides an internal iCal feed of a Notion database that can be used in the [MagicMirror Calendar module](https://docs.magicmirror.builders/modules/calendar.html).
 
-TODO: Add screenshot
-
 ## Installation
 
 In ~/MagicMirror/modules
