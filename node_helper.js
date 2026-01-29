@@ -22,7 +22,7 @@ module.exports = NodeHelper.create({
     const input = this.validate(req, res);
     if (!input) { return; }
 
-    const { token, dataSourceId, nameField } = input;
+    const { token, dataSourceId, nameField, dateField } = input;
 
     const notion = new Client({
       auth: token,
@@ -39,7 +39,7 @@ module.exports = NodeHelper.create({
     });
 
     res.type('text/calendar');
-    res.send(this.eventsToIcs(events?.results ?? [], nameField));
+    res.send(this.eventsToIcs(events?.results ?? [], nameField, dateField));
   },
 
   validate (req, res) {
@@ -47,6 +47,7 @@ module.exports = NodeHelper.create({
       token,
       dataSourceId,
       nameField = 'Name',
+      dateField = 'Date',
     } = req.query;
 
     if (!token) {
@@ -62,15 +63,16 @@ module.exports = NodeHelper.create({
       return false;
     }
 
-    return { token, dataSourceId, nameField };
+    return { token, dataSourceId, nameField, dateField };
   },
 
-  eventsToIcs (notionEvents, nameField = 'Name') {
+  eventsToIcs (notionEvents, nameField = 'Name', dateField = 'Date') {
     const {value, error} = ics.createEvents(notionEvents.map((event) => ({
       uid: event.id,
       title: event.properties[nameField]?.title[0]?.text.content || 'No Title',
-      start: event.properties.Date.date.start,
-      end: event.properties.Date.date.end || event.properties.Date.date.start,
+      start: event.properties[dateField].date.start,
+      end: event.properties[dateField].date.end
+        || event.properties[dateField].date.start,
     })));
 
     if (error) {

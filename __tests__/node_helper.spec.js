@@ -136,6 +136,41 @@ describe('handleRequest', () => {
     expect(res.send).toHaveBeenCalledWith(helper.eventsToIcs(notionEvents, 'Event'));
   });
 
+  it('can customize the date field', async () => {
+    const notionEvents = [
+      {
+        object: 'page',
+        id: 'page-id',
+        properties: {
+          Name: { title: [{ text: { content: 'Task 1' } }] },
+          Status: { select: { name: 'In Progress' } },
+          EventDate: { date: { start: '2023-09-30' } },
+        },
+      },
+      {
+        object: 'page',
+        id: 'page-id-2',
+        properties: {
+          Name: { title: [{ text: { content: 'Task 2' } }] },
+          Status: { select: { name: 'Not started' } },
+          EventDate: { date: { start: '2023-10-01' } },
+        },
+      },
+    ];
+    query.mockImplementation(() => Promise.resolve({ results: notionEvents}));
+    const req = getMockReq({
+      query: {
+        token: 'test-notion-token',
+        dataSourceId: 'test-datasource-id',
+        dateField: 'EventDate',
+      },
+    });
+    await helper.handleRequest(req, res);
+
+    expect(res.type).toHaveBeenCalledWith('text/calendar');
+    expect(res.send).toHaveBeenCalledWith(helper.eventsToIcs(notionEvents, 'Name', 'EventDate'));
+  });
+
   it('will fail if not provided token', () => {
     const req = getMockReq({
       query: {
@@ -224,5 +259,30 @@ describe('eventToIcs', () => {
     ];
 
     expect(helper.eventsToIcs(notionEvents, 'Event')).toMatchSnapshot();
+  });
+
+  it('can use a custom date field', () => {
+    const notionEvents = [
+      {
+        object: 'page',
+        id: 'page-id',
+        properties: {
+          Name: { title: [{ text: { content: 'Event 1' } }] },
+          Status: { select: { name: 'In Progress' } },
+          EventDate: { date: { start: '2023-09-30' } },
+        },
+      },
+      {
+        object: 'page',
+        id: 'page-id-2',
+        properties: {
+          Name: { title: [{ text: { content: 'Event 2' } }] },
+          Status: { select: { name: 'Not started' } },
+          EventDate: { date: { start: '2023-10-01' } },
+        },
+      },
+    ];
+
+    expect(helper.eventsToIcs(notionEvents, 'Name', 'EventDate')).toMatchSnapshot();
   });
 });
