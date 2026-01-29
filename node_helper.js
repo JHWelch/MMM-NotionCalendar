@@ -70,9 +70,11 @@ module.exports = NodeHelper.create({
     const {value, error} = ics.createEvents(notionEvents.map((event) => ({
       uid: event.id,
       title: event.properties[nameField]?.title[0]?.text.content || 'No Title',
-      start: event.properties[dateField].date.start,
-      end: event.properties[dateField].date.end
+      start: this.parseDate(event.properties[dateField].date.start),
+      end: this.parseDate(
+        event.properties[dateField].date.end
         || event.properties[dateField].date.start,
+      ),
     })));
 
     if (error) {
@@ -82,5 +84,17 @@ module.exports = NodeHelper.create({
     }
 
     return value;
+  },
+
+  parseDate (dateString) {
+    const date = new Date(dateString);
+
+    return [
+      date.getUTCFullYear(),
+      date.getUTCMonth() + 1,
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+    ];
   },
 });
