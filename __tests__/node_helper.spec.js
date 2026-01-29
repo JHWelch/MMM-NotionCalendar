@@ -74,7 +74,6 @@ describe('handleRequest', () => {
         id: 'page-id',
         properties: {
           Name: { title: [{ text: { content: 'Task 1' } }] },
-          Status: { select: { name: 'In Progress' } },
           Date: { date: { start: '2023-09-30' } },
         },
       },
@@ -83,7 +82,6 @@ describe('handleRequest', () => {
         id: 'page-id-2',
         properties: {
           Name: { title: [{ text: { content: 'Task 2' } }] },
-          Status: { select: { name: 'Not started' } },
           Date: { date: { start: '2023-10-01' } },
         },
       },
@@ -108,7 +106,6 @@ describe('handleRequest', () => {
         id: 'page-id',
         properties: {
           Event: { title: [{ text: { content: 'Task 1' } }] },
-          Status: { select: { name: 'In Progress' } },
           Date: { date: { start: '2023-09-30' } },
         },
       },
@@ -117,7 +114,6 @@ describe('handleRequest', () => {
         id: 'page-id-2',
         properties: {
           Event: { title: [{ text: { content: 'Task 2' } }] },
-          Status: { select: { name: 'Not started' } },
           Date: { date: { start: '2023-10-01' } },
         },
       },
@@ -143,7 +139,6 @@ describe('handleRequest', () => {
         id: 'page-id',
         properties: {
           Name: { title: [{ text: { content: 'Task 1' } }] },
-          Status: { select: { name: 'In Progress' } },
           EventDate: { date: { start: '2023-09-30' } },
         },
       },
@@ -152,7 +147,6 @@ describe('handleRequest', () => {
         id: 'page-id-2',
         properties: {
           Name: { title: [{ text: { content: 'Task 2' } }] },
-          Status: { select: { name: 'Not started' } },
           EventDate: { date: { start: '2023-10-01' } },
         },
       },
@@ -227,7 +221,6 @@ describe('eventToIcs', () => {
         id: 'page-id',
         properties: {
           Name: { title: [{ text: { content: 'Task 1' } }] },
-          Status: { select: { name: 'In Progress' } },
           Date: { date: { start: '2023-09-30' } },
         },
       },
@@ -236,7 +229,6 @@ describe('eventToIcs', () => {
         id: 'page-id-2',
         properties: {
           Name: { title: [{ text: { content: 'Task 2' } }] },
-          Status: { select: { name: 'Not started' } },
           Date: { date: { start: '2023-10-01' } },
         },
       },
@@ -252,7 +244,6 @@ describe('eventToIcs', () => {
         id: 'page-id',
         properties: {
           Event: { title: [{ text: { content: 'Event 1' } }] },
-          Status: { select: { name: 'In Progress' } },
           Date: { date: { start: '2023-09-30' } },
         },
       },
@@ -261,7 +252,6 @@ describe('eventToIcs', () => {
         id: 'page-id-2',
         properties: {
           Event: { title: [{ text: { content: 'Event 2' } }] },
-          Status: { select: { name: 'Not started' } },
           Date: { date: { start: '2023-10-01' } },
         },
       },
@@ -277,7 +267,6 @@ describe('eventToIcs', () => {
         id: 'page-id',
         properties: {
           Name: { title: [{ text: { content: 'Event 1' } }] },
-          Status: { select: { name: 'In Progress' } },
           EventDate: { date: { start: '2023-09-30' } },
         },
       },
@@ -286,7 +275,6 @@ describe('eventToIcs', () => {
         id: 'page-id-2',
         properties: {
           Name: { title: [{ text: { content: 'Event 2' } }] },
-          Status: { select: { name: 'Not started' } },
           EventDate: { date: { start: '2023-10-01' } },
         },
       },
