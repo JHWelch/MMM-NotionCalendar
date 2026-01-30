@@ -16,6 +16,11 @@ module.exports = NodeHelper.create({
       '/MMM-Notion-Calendar.ics',
       this.handleRequest.bind(this),
     );
+
+    // Log all routes
+    Log.info(this.expressApp._router.stack
+      .filter(r => r.route && r.route.path)
+      .map(r => r.route.path));
   },
 
   async handleRequest (req, res) {
