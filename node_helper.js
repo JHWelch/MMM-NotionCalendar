@@ -18,6 +18,7 @@ module.exports = NodeHelper.create({
     );
 
     // Log all routes
+    Log.info('Registered routes:');
     Log.info(this.expressApp._router.stack
       .filter(r => r.route && r.route.path)
       .map(r => r.route.path));
