@@ -1,4 +1,4 @@
-/* Magic Mirror
+/* MagicMirror²
  * Node Helper: MMM-NotionCalendar
  *
  * By Jordan Welch

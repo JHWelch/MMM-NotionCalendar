@@ -1,6 +1,6 @@
 /* global Module */
 
-/* Magic Mirror
+/* MagicMirror²
  * Module: MMM-NotionCalendar
  *
  * By Jordan Welch

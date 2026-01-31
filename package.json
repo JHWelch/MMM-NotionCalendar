@@ -1,7 +1,7 @@
 {
   "name": "MMM-NotionCalendar",
   "version": "1.0.0",
-  "description": "A Magic Mirror Module to display items from a Notion calendar database.",
+  "description": "A MagicMirror² Module to display items from a Notion calendar database.",
   "keywords": [
     "notion",
     "calendar",
