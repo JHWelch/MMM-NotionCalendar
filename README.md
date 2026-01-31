@@ -9,7 +9,7 @@ This module provides an internal iCal feed of a Notion database that can be used
 In ~/MagicMirror/modules
 
 ```sh
-git clone https://github.com/JHWelch/MMM-Notion-Calendar.git
+git clone https://github.com/JHWelch/MMM-NotionCalendar.git
 
 npm install --omit=dev
 ```
@@ -45,7 +45,7 @@ Add the following to the `modules` array in `config/config.js`. It does not requ
 
 ```js
 {
-    module: 'MMM-Notion-Calendar',
+    module: 'MMM-NotionCalendar',
 }
 ```
 
@@ -53,7 +53,7 @@ Add the following to the `calendars` array in the configuration of the default `
 
 ```js
 {
-    url: 'http://localhost:8080/MMM-Notion-Calendar.ics?notionToken=YOUR_NOTION_TOKEN&dataSourceId=YOUR_DATA_SOURCE_ID',
+    url: 'http://localhost:8080/MMM-NotionCalendar.ics?notionToken=YOUR_NOTION_TOKEN&dataSourceId=YOUR_DATA_SOURCE_ID',
 }
 ```
 

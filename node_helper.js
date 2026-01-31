@@ -1,5 +1,5 @@
 /* Magic Mirror
- * Node Helper: MMM-Notion-Calendar
+ * Node Helper: MMM-NotionCalendar
  *
  * By Jordan Welch
  * MIT Licensed.
@@ -13,7 +13,7 @@ const ics = require('ics');
 module.exports = NodeHelper.create({
   start () {
     this.expressApp.get(
-      '/MMM-Notion-Calendar.ics',
+      '/MMM-NotionCalendar.ics',
       this.handleRequest.bind(this),
     );
   },

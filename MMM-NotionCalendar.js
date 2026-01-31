@@ -1,12 +1,12 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: MMM-Notion-Calendar
+ * Module: MMM-NotionCalendar
  *
  * By Jordan Welch
  * MIT Licensed.
  */
 
-Module.register('MMM-Notion-Calendar', {
+Module.register('MMM-NotionCalendar', {
   requiresVersion: '2.28.0',
 });

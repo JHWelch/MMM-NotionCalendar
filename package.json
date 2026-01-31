@@ -1,5 +1,5 @@
 {
-  "name": "MMM-Notion-Calendar",
+  "name": "MMM-NotionCalendar",
   "version": "1.0.0",
   "description": "A Magic Mirror Module to display items from a Notion calendar database.",
   "keywords": [
@@ -9,18 +9,18 @@
     "mirror",
     "mmm"
   ],
-  "homepage": "https://github.com/JHWelch/MMM-Notion-Calendar#readme",
+  "homepage": "https://github.com/JHWelch/MMM-NotionCalendar#readme",
   "bugs": {
-    "url": "https://github.com/JHWelch/MMM-Notion-Calendar/issues"
+    "url": "https://github.com/JHWelch/MMM-NotionCalendar/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/JHWelch/MMM-Notion-Calendar.git"
+    "url": "git+ssh://git@github.com/JHWelch/MMM-NotionCalendar.git"
   },
   "license": "MIT",
   "author": "Jordan Welch",
   "type": "commonjs",
-  "main": "MMM-Notion-Calendar.js",
+  "main": "MMM-NotionCalendar.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",

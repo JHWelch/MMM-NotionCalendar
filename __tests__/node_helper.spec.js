@@ -9,7 +9,7 @@ const { res, mockClear } = getMockRes();
 
 beforeEach(() => {
   helper = require('../node_helper.js');
-  helper.setName('MMM-Notion-Calendar');
+  helper.setName('MMM-NotionCalendar');
   jest.mock('logger');
   Log = require('logger');
 });
@@ -23,7 +23,7 @@ describe('start', () => {
     helper.start();
 
     expect(helper.expressApp.get).toHaveBeenCalledWith(
-      '/MMM-Notion-Calendar.ics',
+      '/MMM-NotionCalendar.ics',
       expect.any(Function),
     );
   });
