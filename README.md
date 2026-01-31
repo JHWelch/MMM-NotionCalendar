@@ -57,6 +57,8 @@ Add the following to the `calendars` array in the configuration of the default `
 }
 ```
 
+To easily obtain a URL with the correct parameters, as well as adding additional options, you can use the [Notion Calendar URL Generator](https://jhwelch.github.io/MMM-NotionCalendar/).
+
 ## Development
 
 Install dev dependencies
