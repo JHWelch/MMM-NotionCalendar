@@ -86,8 +86,7 @@ module.exports = NodeHelper.create({
     let customFilter = null;
     if (filter) {
       try {
-        const parsedFilter = JSON.parse(filter);
-        customFilter = parsedFilter;
+        customFilter = JSON.parse(filter);
       } catch (_) {
         res.status(422).send('"filter" query parameter is not valid JSON.');
         Log.error('"filter" query parameter is not valid JSON.');

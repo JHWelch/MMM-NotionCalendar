@@ -291,6 +291,23 @@ describe('handleRequest', () => {
     expect(res.send).toHaveBeenCalledWith('"dataSourceId" query parameter is required.');
     expect(Log.error).toHaveBeenCalledWith('"dataSourceId" query parameter is required.');
   });
+
+  it('will fail if filter is not valid JSON', () => {
+    const req = getMockReq({
+      query: {
+        token: 'test-notion-token',
+        dataSourceId: 'test-datasource-id',
+        filter: '{ "invalid": json }',
+      },
+    });
+
+    helper.handleRequest(req, res);
+
+    expect(Client).not.toHaveBeenCalled();
+    expect(query).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(422);
+    expect(res.send).toHaveBeenCalledWith('"filter" query parameter is not valid JSON.');
+  });
 });
 
 describe('eventToIcs', () => {
