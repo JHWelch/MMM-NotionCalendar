@@ -22,7 +22,7 @@ module.exports = NodeHelper.create({
     const input = this.validate(req, res);
     if (!input) { return; }
 
-    const { token, dataSourceId, nameField, dateField, emojis } = input;
+    const { token, dataSourceId, nameProperty, dateProperty, emojis } = input;
 
     const notion = new Client({
       auth: token,
@@ -31,7 +31,7 @@ module.exports = NodeHelper.create({
     const events = await notion.dataSources.query({
       data_source_id: dataSourceId,
       filter: {
-        property: dateField,
+        property: dateProperty,
         date: {
           is_not_empty: true,
         },
@@ -41,8 +41,8 @@ module.exports = NodeHelper.create({
     res.type('text/calendar');
     res.send(this.eventsToIcs(
       events?.results ?? [],
-      nameField,
-      dateField,
+      nameProperty,
+      dateProperty,
       emojis,
     ));
   },
@@ -51,8 +51,8 @@ module.exports = NodeHelper.create({
     const {
       token,
       dataSourceId,
-      nameField = 'Name',
-      dateField = 'Date',
+      nameProperty = 'Name',
+      dateProperty = 'Date',
       emojis = false,
     } = req.query;
 
@@ -69,18 +69,18 @@ module.exports = NodeHelper.create({
       return false;
     }
 
-    return { token, dataSourceId, nameField, dateField, emojis };
+    return { token, dataSourceId, nameProperty, dateProperty, emojis };
   },
 
-  eventsToIcs (notionEvents, nameField = 'Name', dateField = 'Date', emojis = false) {
+  eventsToIcs (notionEvents, nameProperty = 'Name', dateProperty = 'Date', emojis = false) {
     const {value, error} = ics.createEvents(notionEvents.map((event) => {
       const end = this.parseDate(
-        event.properties[dateField].date.end
-        || event.properties[dateField].date.start,
+        event.properties[dateProperty].date.end
+        || event.properties[dateProperty].date.start,
       );
-      const start = this.parseDate(event.properties[dateField].date.start);
+      const start = this.parseDate(event.properties[dateProperty].date.start);
 
-      let title = event.properties[nameField]?.title[0]?.text.content || 'No Title';
+      let title = event.properties[nameProperty]?.title[0]?.text.content || 'No Title';
       if (emojis && event.icon && event.icon.type === 'emoji') {
         title = `${event.icon.emoji} ${title}`;
       }

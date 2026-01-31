@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMM-NotionCalendar</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="./built.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="py-4 px-2 p bg-violet-300 min-h-screen flex flex-col items-center">
+      <h1 class="text-2xl font-bold mb-4">MMM-NotionCalendar</h1>
+      <form
+        @submit.prevent
+        x-data="{
+          baseUrl: 'http://0.0.0.0:8080/',
+          token: '',
+          dataSourceId: '',
+          nameProperty: '',
+          dateProperty: '',
+          emojis: false,
+          notification: null,
+          notificationMessage: '',
+          notify() {
+            if (this.notification) {
+              clearTimeout(this.notification);
+            }
+            this.notificationMessage = 'URL copied to clipboard!';
+            this.notification = setTimeout(() => {
+              this.notification = null;
+            }, 5000);
+          },
+          enabled() {
+            return this.baseUrl && this.token && this.dataSourceId;
+          },
+          url() {
+            const baseUrl = this.baseUrl.trim() + '/MMM-Notion-Calendar.ics';
+            const params = new URLSearchParams();
+            params.append('token', this.token);
+            params.append('dataSourceId', this.dataSourceId);
+            if (this.nameProperty) {
+              params.append('nameProperty', this.nameProperty);
+            }
+            if (this.dateProperty) {
+              params.append('dateProperty', this.dateProperty);
+            }
+            if (this.emojis) {
+              params.append('emojis', 'true');
+            }
+
+            return [baseUrl, params.toString()].join('?');
+          },
+          submit() {
+            if (this.enabled()) {
+              navigator.clipboard.writeText(this.url());
+              this.notify('URL copied to clipboard!');
+            }
+          }
+        }"
+        class="bg-white p-4 rounded-xl shadow-md max-w-md w-full"
+      >
+        <h2 class="text-xl font-semibold mb-2">URL Generator</h2>
+
+        <p>
+          This page will help you generate the iCalendar link to use in your calendar configuration.
+
+          <strong class="text-red-500">No information is stored on this page or sent to any server.</strong>
+
+          Full source code is available on
+          <a
+            href="https://github.com/JHWelch/MMM-NotionCalendar"
+            target="_blank"
+            class="text-violet-600 underline"
+          >
+            GitHub
+          </a>
+        </p>
+
+        <label class="block mt-4 mb-1 font-medium flex flex-col">
+          <span>
+            Base URL
+
+            <span class="text-red-500">*</span>
+          </span>
+
+          <input
+            x-model="baseUrl"
+            type="text"
+            name="baseUrl"
+            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+            required
+          >
+        </label>
+
+        <label class="block mt-4 mb-1 font-medium flex flex-col">
+          <span>
+            Notion Integration Token
+
+            <span class="text-red-500">*</span>
+          </span>
+
+          <input
+            x-model="token"
+            type="text"
+            name="token"
+            placeholder="Integration Token"
+            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+            required
+          >
+        </label>
+
+        <label class="block mt-4 mb-1 font-medium flex flex-col">
+          <span>
+            Notion data Source Id
+
+            <span class="text-red-500">*</span>
+          </span>
+
+          <input
+            x-model="dataSourceId"
+            type="text"
+            name="dataSourceId"
+            placeholder="Data source id"
+            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+            required
+          >
+        </label>
+
+        <label class="block mt-4 mb-1 font-medium flex flex-col">
+          <span>
+            Name Property
+          </span>
+
+          <input
+            x-model="nameProperty"
+            type="text"
+            name="nameProperty"
+            placeholder="Name"
+            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+          >
+        </label>
+
+        <label class="block mt-4 mb-1 font-medium flex flex-col">
+          <span>
+            Date Property
+          </span>
+
+          <input
+            x-model="dateProperty"
+            type="text"
+            name="dateProperty"
+            placeholder="Date"
+            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+          >
+        </label>
+
+        <label class="block mt-4 mb-1 font-medium flex space-x-1 items-center pl-1">
+          <input
+            x-model="emojis"
+            type="checkbox"
+            name="emojis"
+            class="focus:ring-violet-500 focus:outline-none focus:ring-2 rounded-lg"
+          >
+
+          <span>
+            Include Page Emojis
+          </span>
+        </label>
+
+        <button
+          :class="{
+            'flex items-center justify-between p-2 bg-violet-100 rounded font-mono w-full text-violet-900 my-4 border-2 border-transparent focus:border-violet-500 focus:outline-none relative': true,
+            'cursor-pointer': enabled(),
+            'opacity-50 cursor-not-allowed': !enabled()
+          }"
+          :title="enabled() ? 'Click to copy URL' : 'Please fill in all required fields to generate URL'"
+          @click="submit"
+        >
+          <div
+            x-show="notification"
+            x-transition.opacity.duration.500ms
+            x-text="notificationMessage"
+            class="absolute -top-18 left-1/2 -translate-x-1/2 p-2 bg-emerald-100 text-emerald-800 rounded"
+          ></div>
+
+          <div class="text-nowrap overflow-x-auto">
+            <span x-text="url()"></span>
+          </div>
+
+          <div class="border-l border-violet-900 pl-2 ml-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
+              />
+            </svg>
+          </div>
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

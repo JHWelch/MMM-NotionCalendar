@@ -123,7 +123,7 @@ describe('handleRequest', () => {
       query: {
         token: 'test-notion-token',
         dataSourceId: 'test-datasource-id',
-        nameField: 'Event',
+        nameProperty: 'Event',
       },
     });
     await helper.handleRequest(req, res);
@@ -156,7 +156,7 @@ describe('handleRequest', () => {
       query: {
         token: 'test-notion-token',
         dataSourceId: 'test-datasource-id',
-        dateField: 'EventDate',
+        dateProperty: 'EventDate',
       },
     });
     await helper.handleRequest(req, res);
