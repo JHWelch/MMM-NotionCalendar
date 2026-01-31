@@ -22,6 +22,26 @@
           emojis: false,
           notification: null,
           notificationMessage: '',
+          rawFilter: '{}',
+          parsedFilter: {},
+          filterError: null,
+          calculateFilter() {
+            this.filterError = null;
+
+            try {
+              const parsed = eval('(' + this.rawFilter + ')') ?? {};
+
+              if (!parsed || typeof parsed !== 'object') {
+                throw new Error('Filter must be an object');
+              }
+
+              this.parsedFilter = parsed;
+            } catch (e) {
+              this.filterError = 'Filter must be a valid object';
+
+              this.parsedFilter = {};
+            }
+          },
           notify() {
             if (this.notification) {
               clearTimeout(this.notification);
@@ -47,6 +67,9 @@
             }
             if (this.emojis) {
               params.append('emojis', 'true');
+            }
+            if (!this.filterError && Object.keys(this.parsedFilter).length > 0) {
+              params.append('filter', JSON.stringify(this.parsedFilter));
             }
 
             return [baseUrl, params.toString()].join('?');
@@ -166,6 +189,21 @@
           <span>
             Include Page Emojis
           </span>
+        </label>
+
+        <label class="block mt-4 mb-1 font-medium flex flex-col">
+          <span>
+            Filter
+          </span>
+
+          <textarea
+            x-model="rawFilter"
+            @input.debounce.750="calculateFilter"
+            type="text"
+            name="filter"
+            placeholder="{}"
+            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800 h-24 resize-y font-mono"
+          ></textarea>
         </label>
 
         <button
