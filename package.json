@@ -24,8 +24,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "lint": "eslint .",
-    "fix": "eslint . --fix"
+    "lint": "eslint",
+    "fix": "eslint --fix"
   },
   "dependencies": {
     "@notionhq/client": "^5.8.0",
