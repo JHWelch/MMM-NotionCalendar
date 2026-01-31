@@ -14,14 +14,16 @@
       <form
         @submit.prevent
         x-data="{
-          url: '',
           baseUrl: 'http://0.0.0.0:8080/',
           token: '',
           dataSourceId: '',
           nameProperty: '',
           dateProperty: '',
           emojis: false,
-          calculateUrl() {
+          enabled() {
+            return this.baseUrl && this.token && this.dataSourceId;
+          },
+          url() {
             const baseUrl = this.baseUrl.trim() + '/MMM-Notion-Calendar.ics';
             const params = new URLSearchParams();
             params.append('token', this.token);
@@ -35,17 +37,39 @@
             if (this.emojis) {
               params.append('emojis', 'true');
             }
-            this.url = [baseUrl, params.toString()].join('?');
+
+            return [baseUrl, params.toString()].join('?');
           }
         }"
-        x-init="calculateUrl"
         class="bg-white p-4 rounded-xl shadow-md max-w-md"
       >
         <h2 class="text-xl font-semibold mb-2">URL Generator</h2>
 
-        <button class="flex items-center justify-between p-2 bg-violet-100 rounded font-mono w-full cursor-pointer text-violet-900">
+        <p>
+          This page will help you generate the iCalendar link to use in your calendar configuration.
+
+          <strong class="text-red-500">No information is stored on this page or sent to any server.</strong>
+
+          Full source code is available on
+          <a
+            href="https://github.com/JHWelch/MMM-NotionCalendar"
+            target="_blank"
+            class="text-violet-600 underline"
+          >
+            GitHub
+          </a>
+        </p>
+
+        <button
+          :class="{
+            'flex items-center justify-between p-2 bg-violet-100 rounded font-mono w-full text-violet-900 my-4': true,
+            'cursor-pointer': enabled(),
+            'opacity-50 cursor-not-allowed': !enabled()
+          }"
+          :title="enabled() ? 'Click to copy URL' : 'Please fill in all required fields to generate URL'"
+        >
           <div class="text-nowrap overflow-x-auto">
-            <span x-text="url"></span>
+            <span x-text="url()"></span>
           </div>
 
           <div class="border-l border-violet-900 pl-2 ml-2">
@@ -69,11 +93,12 @@
         <label class="block mt-4 mb-1 font-medium flex flex-col">
           <span>
             Base URL
+
+            <span class="text-red-500">*</span>
           </span>
 
           <input
             x-model="baseUrl"
-            x-on:keyup="calculateUrl()"
             type="text"
             name="baseUrl"
           >
@@ -82,11 +107,12 @@
         <label class="block mt-4 mb-1 font-medium flex flex-col">
           <span>
             Notion Integration Token
+
+            <span class="text-red-500">*</span>
           </span>
 
           <input
             x-model="token"
-            x-on:keyup="calculateUrl()"
             type="text"
             name="token"
             placeholder="Integration Token"
@@ -96,11 +122,12 @@
         <label class="block mt-4 mb-1 font-medium flex flex-col">
           <span>
             Notion data Source Id
+
+            <span class="text-red-500">*</span>
           </span>
 
           <input
             x-model="dataSourceId"
-            x-on:keyup="calculateUrl()"
             type="text"
             name="dataSourceId"
             placeholder="Data source id"
@@ -114,7 +141,6 @@
 
           <input
             x-model="nameProperty"
-            x-on:keyup="calculateUrl()"
             type="text"
             name="nameProperty"
             placeholder="Name"
@@ -128,7 +154,6 @@
 
           <input
             x-model="dateProperty"
-            x-on:keyup="calculateUrl()"
             type="text"
             name="dateProperty"
             placeholder="Date"
@@ -138,7 +163,6 @@
         <label class="block mt-4 mb-1 font-medium flex space-x-1 items-center">
           <input
             x-model="emojis"
-            x-on:change="calculateUrl()"
             type="checkbox"
             name="emojis"
           >
