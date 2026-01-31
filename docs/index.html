@@ -28,7 +28,6 @@
             }
             this.notificationMessage = 'URL copied to clipboard!';
             this.notification = setTimeout(() => {
-              this.notificationMessage = '';
               this.notification = null;
             }, 5000);
           },
@@ -179,7 +178,8 @@
           @click="submit"
         >
           <div
-            x-show="notificationMessage"
+            x-show="notification"
+            x-transition.opacity.duration.500ms
             x-text="notificationMessage"
             class="absolute -top-18 left-1/2 -translate-x-1/2 p-2 bg-emerald-100 text-emerald-800 rounded"
           ></div>
