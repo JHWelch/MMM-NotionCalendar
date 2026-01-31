@@ -25,6 +25,7 @@
           rawFilter: '{}',
           parsedFilter: {},
           filterError: null,
+          filterFocused: false,
           calculateFilter() {
             this.filterError = null;
 
@@ -191,7 +192,7 @@
           </span>
         </label>
 
-        <label class="block mt-4 mb-1 font-medium flex flex-col">
+        <label class="block mt-4 mb-1 font-medium flex flex-col relative">
           <span>
             Filter
           </span>
@@ -199,11 +200,23 @@
           <textarea
             x-model="rawFilter"
             @input.debounce.750="calculateFilter"
+            @focus="filterFocused = true"
+            @blur="filterFocused = false"
             type="text"
             name="filter"
             placeholder="{}"
             class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800 h-24 resize-y font-mono"
           ></textarea>
+
+          <div
+            x-show="filterError"
+            x-text="filterError"
+            :class="{
+              'text-red-500 bg-red-50 text-sm absolute bottom-0 w-full rounded-b p-1 border-b-2 border-r-2 border-l-2': true,
+              'border-violet-800': filterFocused,
+              'border-violet-200': !filterFocused
+            }"
+          ></div>
         </label>
 
         <button
