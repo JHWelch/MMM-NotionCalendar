@@ -1,4 +1,4 @@
-# MMM-Notion-Calednar
+# MMM-NotionCalendar
 
 This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror/).
 
