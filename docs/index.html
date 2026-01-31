@@ -20,6 +20,18 @@
           nameProperty: '',
           dateProperty: '',
           emojis: false,
+          notification: null,
+          notificationMessage: '',
+          notify() {
+            if (this.notification) {
+              clearTimeout(this.notification);
+            }
+            this.notificationMessage = 'URL copied to clipboard!';
+            this.notification = setTimeout(() => {
+              this.notificationMessage = '';
+              this.notification = null;
+            }, 5000);
+          },
           enabled() {
             return this.baseUrl && this.token && this.dataSourceId;
           },
@@ -39,10 +51,22 @@
             }
 
             return [baseUrl, params.toString()].join('?');
+          },
+          submit() {
+            if (this.enabled()) {
+              navigator.clipboard.writeText(this.url());
+              this.notify('URL copied to clipboard!');
+            }
           }
         }"
         class="bg-white p-4 rounded-xl shadow-md max-w-md"
       >
+        <div
+          x-show="notificationMessage"
+          x-text="notificationMessage"
+          class="fixed top-4 right-4 p-2 bg-emerald-100 text-emerald-800 rounded text-xl"
+        ></div>
+
         <h2 class="text-xl font-semibold mb-2">URL Generator</h2>
 
         <p>
@@ -158,6 +182,7 @@
             'opacity-50 cursor-not-allowed': !enabled()
           }"
           :title="enabled() ? 'Click to copy URL' : 'Please fill in all required fields to generate URL'"
+          @click="submit"
         >
           <div class="text-nowrap overflow-x-auto">
             <span x-text="url()"></span>
