@@ -9,8 +9,8 @@
   </head>
 
   <body>
-    <div class="py-4 px-2 p bg-violet-300 min-h-screen flex flex-col items-center">
-      <h1 class="text-2xl font-bold mb-4">MMM-NotionCalendar</h1>
+    <div class="py-4 px-2 p bg-violet-300 min-h-screen flex flex-col items-center md:px-6 md:py-6">
+      <h1 class="text-2xl font-bold mb-6 md:text-4xl">MMM-NotionCalendar</h1>
       <form
         @submit.prevent
         x-data="{
@@ -86,9 +86,9 @@
             }
           }
         }"
-        class="bg-white p-4 rounded-xl shadow-md max-w-md w-full"
+        class="bg-white p-4 rounded-xl shadow-md max-w-md w-full md:max-w-4xl md:p-6"
       >
-        <h2 class="text-xl font-semibold mb-2">URL Generator</h2>
+        <h2 class="text-xl font-semibold mb-2 md:text-2xl">URL Generator</h2>
 
         <p>
           This page will help you generate the iCalendar link to use in your calendar configuration.
@@ -104,153 +104,158 @@
             GitHub
           </a>
         </p>
+        <div class="flex flex-col md:flex-row md:space-x-6">
+          <div class="md:w-1/2">
+            <label class="block mt-4 mb-1 font-medium flex flex-col">
+              <span>
+                Base URL
 
-        <label class="block mt-4 mb-1 font-medium flex flex-col">
-          <span>
-            Base URL
+                <span class="text-red-500">*</span>
+              </span>
 
-            <span class="text-red-500">*</span>
-          </span>
+              <input
+                x-model="baseUrl"
+                type="text"
+                name="baseUrl"
+                class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+                required
+              >
+            </label>
 
-          <input
-            x-model="baseUrl"
-            type="text"
-            name="baseUrl"
-            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
-            required
-          >
-        </label>
+            <label class="block mt-4 mb-1 font-medium flex flex-col">
+              <span>
+                Notion Integration Token
 
-        <label class="block mt-4 mb-1 font-medium flex flex-col">
-          <span>
-            Notion Integration Token
+                <span class="text-red-500">*</span>
+              </span>
 
-            <span class="text-red-500">*</span>
-          </span>
+              <input
+                x-model="token"
+                type="text"
+                name="token"
+                placeholder="Integration Token"
+                class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+                required
+              >
+            </label>
 
-          <input
-            x-model="token"
-            type="text"
-            name="token"
-            placeholder="Integration Token"
-            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
-            required
-          >
-        </label>
+            <label class="block mt-4 mb-1 font-medium flex flex-col">
+              <span>
+                Notion data Source Id
 
-        <label class="block mt-4 mb-1 font-medium flex flex-col">
-          <span>
-            Notion data Source Id
+                <span class="text-red-500">*</span>
+              </span>
 
-            <span class="text-red-500">*</span>
-          </span>
+              <input
+                x-model="dataSourceId"
+                type="text"
+                name="dataSourceId"
+                placeholder="Data source id"
+                class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+                required
+              >
+            </label>
 
-          <input
-            x-model="dataSourceId"
-            type="text"
-            name="dataSourceId"
-            placeholder="Data source id"
-            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
-            required
-          >
-        </label>
+            <label class="block mt-4 mb-1 font-medium flex flex-col">
+              <span>
+                Name Property
+              </span>
 
-        <label class="block mt-4 mb-1 font-medium flex flex-col">
-          <span>
-            Name Property
-          </span>
+              <input
+                x-model="nameProperty"
+                type="text"
+                name="nameProperty"
+                placeholder="Name"
+                class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+              >
+            </label>
 
-          <input
-            x-model="nameProperty"
-            type="text"
-            name="nameProperty"
-            placeholder="Name"
-            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
-          >
-        </label>
+            <label class="block mt-4 mb-1 font-medium flex flex-col">
+              <span>
+                Date Property
+              </span>
 
-        <label class="block mt-4 mb-1 font-medium flex flex-col">
-          <span>
-            Date Property
-          </span>
+              <input
+                x-model="dateProperty"
+                type="text"
+                name="dateProperty"
+                placeholder="Date"
+                class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
+              >
+            </label>
 
-          <input
-            x-model="dateProperty"
-            type="text"
-            name="dateProperty"
-            placeholder="Date"
-            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800"
-          >
-        </label>
+            <label class="block mt-4 mb-1 font-medium flex space-x-1 items-center pl-1">
+              <input
+                x-model="emojis"
+                type="checkbox"
+                name="emojis"
+                class="focus:ring-violet-500 focus:outline-none focus:ring-2 rounded-lg"
+              >
 
-        <label class="block mt-4 mb-1 font-medium flex space-x-1 items-center pl-1">
-          <input
-            x-model="emojis"
-            type="checkbox"
-            name="emojis"
-            class="focus:ring-violet-500 focus:outline-none focus:ring-2 rounded-lg"
-          >
-
-          <span>
-            Include Page Emojis
-          </span>
-        </label>
-
-        <label class="block mt-4 mb-1 font-medium flex flex-col relative">
-          <div class="flex items-center mb-1 justify-between">
-            <span>Filter</span>
-
-            <a
-              href="https://developers.notion.com/reference/filter-data-source-entries"
-              target="_blank"
-              class="text-violet-500 underline ml-1"
-            >
-              Notion Filter Reference
-            </a>
+              <span>
+                Include Page Emojis
+              </span>
+            </label>
           </div>
 
-          <textarea
-            x-model="rawFilter"
-            @input.debounce.750="calculateFilter"
-            @focus="filterFocused = true"
-            @blur="filterFocused = false"
-            type="text"
-            name="filter"
-            placeholder="{}"
-            class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800 h-24 resize-y font-mono"
-          ></textarea>
+          <div class="md:w-1/2 flex">
+            <label class="block mt-4 mb-1 font-medium flex flex-col relative w-full">
+              <div class="flex items-center mb-1 justify-between">
+                <span>Filter</span>
 
-          <div
-            x-show="filterError"
-            :class="{
+                <a
+                  href="https://developers.notion.com/reference/filter-data-source-entries"
+                  target="_blank"
+                  class="text-violet-500 underline ml-1"
+                >
+                  Notion Filter Reference
+                </a>
+              </div>
+
+              <textarea
+                x-model="rawFilter"
+                @input.debounce.750="calculateFilter"
+                @focus="filterFocused = true"
+                @blur="filterFocused = false"
+                type="text"
+                name="filter"
+                placeholder="{}"
+                class="w-full border-2 border-violet-200 rounded px-2 py-1 focus:outline-none focus:border-violet-800 h-24 resize-y font-mono md:h-full md:w-full"
+              ></textarea>
+
+              <div
+                x-show="filterError"
+                :class="{
               'text-red-500 bg-red-50 text-sm absolute bottom-0 w-full rounded-b py-1 px-2 border-b-2 border-r-2 border-l-2 flex justify-between items-center opacity-80': true,
               'border-violet-800': filterFocused,
               'border-violet-200': !filterFocused
             }"
-          >
-            <span x-text="filterError"></span>
+              >
+                <span x-text="filterError"></span>
 
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
 
+              </div>
+            </label>
           </div>
-        </label>
+        </div>
 
         <button
           :class="{
-            'flex items-center justify-between p-2 bg-violet-100 rounded font-mono w-full text-violet-900 my-4 border-2 border-transparent focus:border-violet-500 focus:outline-none relative': true,
+            'flex items-center justify-between p-2 bg-violet-100 rounded font-mono w-full text-violet-900 mt-4 border-2 border-transparent focus:border-violet-500 focus:outline-none relative hover:bg-violet-200 focus:bg-violet-200': true,
             'cursor-pointer': enabled(),
             'opacity-50 cursor-not-allowed': !enabled()
           }"
