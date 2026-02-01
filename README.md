@@ -4,6 +4,12 @@ This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/Magic
 
 This module provides an internal iCal feed of a Notion database that can be used in the [MagicMirror Calendar module](https://docs.magicmirror.builders/modules/calendar.html).
 
+<div style="max-width: 400px;">
+  <img src="screenshot.png" alt="Screenshot of Notion Calendar in MagicMirror" style="width: 100%; height: auto;" />
+</div>
+
+Notion events displayed in the MagicMirror Calendar module.
+
 ## Installation
 
 In ~/MagicMirror/modules
@@ -41,7 +47,7 @@ npm install --omit=dev
 
 ## Using the module
 
-Add the following to the `modules` array in `config/config.js`. It does not require any configuration options. These will be passed in the URL of the calendar feed.
+Add the following to the `modules` array in `config/config.js`. It does not require any configuration options or position. Config options will be passed in the URL of the calendar feed.
 
 ```js
 {
