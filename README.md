@@ -45,7 +45,7 @@ npm install --omit=dev
 3. Select the desired data source and "Copy data source ID"
 4. Save for use in url (`dataSourceId`)
 
-## Using the module
+## Configuration
 
 Add the following to the `modules` array in `config/config.js`. It does not require any configuration options or position. Config options will be passed in the URL of the calendar feed.
 
@@ -64,6 +64,15 @@ Add the following to the `calendars` array in the configuration of the default `
 ```
 
 To easily obtain a URL with the correct parameters, as well as adding additional options, there is [a helper tool to generate URLs](https://jhwelch.github.io/MMM-NotionCalendar/).
+
+## Upgrade
+
+To upgrade to the latest version, in `~/MagicMirror/modules/MMM-NotionCalendar`
+
+```sh
+git pull
+npm install --omit=dev
+```
 
 ## Development
 
