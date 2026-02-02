@@ -2,13 +2,13 @@
 
 This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror/).
 
-This module provides an internal iCalendar feed of a Notion database that can be used in the [MagicMirror Calendar module](https://docs.magicmirror.builders/modules/calendar.html).
+This module provides an internal iCalendar feed of a Notion database that can be used in the [MagicMirror² Calendar module](https://docs.magicmirror.builders/modules/calendar.html).
 
 <div style="max-width: 400px;">
-  <img src="screenshot.png" alt="Screenshot of Notion Calendar in MagicMirror" style="width: 100%; height: auto;" />
+  <img src="screenshot.png" alt="Screenshot of Notion Calendar in MagicMirror²" style="width: 100%; height: auto;" />
 </div>
 
-Notion events displayed in the MagicMirror Calendar module.
+Notion events displayed in the MagicMirror² Calendar module.
 
 ## Installation
 
@@ -65,9 +65,21 @@ Add the following to the `calendars` array in the configuration of the default `
 
 To easily obtain a URL with the correct parameters, as well as adding additional options, there is [a helper tool to generate URLs](https://jhwelch.github.io/MMM-NotionCalendar/).
 
-## Upgrade
+## Update
 
-To upgrade to the latest version, in `~/MagicMirror/modules/MMM-NotionCalendar`
+### Automatic Update
+
+Did you know MagicMirror² has a built-in module updater? Read more about it [here](https://docs.magicmirror.builders/modules/updatenotification.html#updates-array).
+
+Add the following to your `updates` array of `updatenotification` in `config/config.js`
+
+```js
+{ 'MMM-NotionCalendar': 'git pull && npm install --omit=dev' },
+```
+
+### Manual Update
+
+In `~/MagicMirror/modules/MMM-NotionCalendar`
 
 ```sh
 git pull
