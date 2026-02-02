@@ -124,10 +124,20 @@ module.exports = NodeHelper.create({
   parseDate (dateString) {
     const date = new Date(dateString);
 
+    if (!dateString.includes('T')) {
+      return [
+        date.getUTCFullYear(),
+        date.getUTCMonth() + 1,
+        date.getUTCDate(),
+      ];
+    }
+
     return [
-      date.getUTCFullYear(),
-      date.getUTCMonth() + 1,
-      date.getUTCDate(),
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
     ];
   },
 

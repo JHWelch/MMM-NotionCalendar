@@ -340,6 +340,21 @@ describe('eventToIcs', () => {
     expect(helper.eventsToIcs(notionEvents)).toMatchSnapshot();
   });
 
+  it('can build events with date and time', () => {
+    const notionEvents = [
+      {
+        object: 'page',
+        id: 'page-id',
+        properties: {
+          Name: { title: [{ text: { content: 'Task 1' } }] },
+          Date: { date: { start: '2026-02-03T20:00:00.000-06:00' } },
+        },
+      },
+    ];
+
+    expect(helper.eventsToIcs(notionEvents)).toMatchSnapshot();
+  });
+
   it('can use a custom name field', () => {
     const notionEvents = [
       {
