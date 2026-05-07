@@ -30,17 +30,17 @@
     "build": "npx @tailwindcss/cli -i ./docs/app.css -o ./docs/built.css"
   },
   "dependencies": {
-    "@notionhq/client": "^5.8.0",
-    "ics": "^3.8.1"
+    "@notionhq/client": "^5.20.0",
+    "ics": "^3.12.0"
   },
   "devDependencies": {
-    "@html-eslint/eslint-plugin": "^0.54.0",
-    "@html-eslint/parser": "^0.54.0",
+    "@html-eslint/eslint-plugin": "^0.60.0",
+    "@html-eslint/parser": "^0.60.0",
     "@jest-mock/express": "^3.0.0",
-    "@jhwelch/mmm-eslint-config": "^3.0.0",
-    "@tailwindcss/cli": "^4.1.18",
-    "eslint": "^9.39.2",
-    "jest": "^30.2.0",
-    "tailwindcss": "^4.1.18"
+    "@jhwelch/mmm-eslint-config": "^4.0.0",
+    "@tailwindcss/cli": "^4.2.4",
+    "eslint": "^10.3.0",
+    "jest": "^30.3.0",
+    "tailwindcss": "^4.2.4"
   }
 }
