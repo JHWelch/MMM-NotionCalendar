@@ -16,7 +16,7 @@ In `~/MagicMirror/modules`
 
 ```sh
 git clone https://github.com/JHWelch/MMM-NotionCalendar.git
-
+cd MMM-NotionCalendar
 npm install --omit=dev
 ```
 
